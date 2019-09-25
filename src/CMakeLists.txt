@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(ros2_ci)
+project(examples_rclcpp_minimal_timer)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
