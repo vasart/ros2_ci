@@ -1,6 +1,6 @@
 image: ubuntu:bionic
 
-before_script
+before_script:
   - export DEBIAN_FRONTEND=noninteractive
   - apt-get --quiet update --yes
   - apt-get --quiet install --yes curl gnupg2 lsb-release tzdata
