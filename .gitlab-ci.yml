@@ -8,7 +8,7 @@ before_script:
   - sh -c 'echo "deb [arch=amd64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
   - apt-get --quiet update --yes
   - apt-get --quiet install --yes ros-dashing-ros-base
-  #- apt-get --quiet install --yes python3-colcon-common-extensions cmake build-essential python-rosdep
+  - apt-get --quiet install --yes python3-colcon-common-extensions cmake build-essential python-rosdep
   - source /opt/ros/dashing/setup.bash
 
 stages:
