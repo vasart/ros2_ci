@@ -22,7 +22,7 @@ lint-cpp:
   stage: lint
   script:
     - apt --quiet install --yes cppcheck
-    - pip install cpplint
     - cppcheck --error-exitcode=1 .
-    - cpplint --extensions=cpp --counting=detailed --linelength=120 --recursive ./*
+    #- pip install cpplint
+    #- cpplint --extensions=cpp --counting=detailed --linelength=120 --recursive ./*
 
