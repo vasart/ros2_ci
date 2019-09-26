@@ -13,6 +13,9 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 
+find_package(ament_lint_auto REQUIRED)
+ament_lint_auto_find_test_dependencies()
+
 add_executable(timer_lambda lambda.cpp)
 ament_target_dependencies(timer_lambda rclcpp)
 

@@ -2,26 +2,38 @@ image: ubuntu:bionic
 
 before_script:
   - export DEBIAN_FRONTEND=noninteractive
-  - apt-get --quiet update --yes
-  - apt-get --quiet install --yes curl gnupg2 lsb-release tzdata
+  - apt --quiet update --yes
+  - apt --quiet install --yes curl gnupg2 lsb-release tzdata
   - curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-  - sh -c 'echo "deb [arch=amd64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
-  - apt-get --quiet update --yes
-  - apt-get --quiet install --yes ros-dashing-ros-base
-  - apt-get --quiet install --yes python3-colcon-common-extensions cmake build-essential python-rosdep
+  - echo "deb [arch=amd64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list
+  - aot --quiet update --yes
+  - apt --quiet install --yes ros-dashing-ros-base
+  - apt --quiet install --yes python3-colcon-common-extensions cmake build-essential python-rosdep
   - source /opt/ros/dashing/setup.bash
 
 stages:
   - build
-  - test
+  - lint
 
-build-colcon:
+build-test:
   stage: build
   script:
     - colcon build
-
-test-colcon:
-  stage: test
-  script:
     - colcon test --abort-on-error
+    
+lint-python:
+  stage: lint
+  script:
+    - pip install virtualenv flake8
+    - virtualenv venv
+    - source venv/bin/activate
+    - flake8 --max-line-length=120 --exclude=venv*
+
+lint-cpp:
+  stage: lint
+  script:
+    - apt --quiet install --yes cppcheck
+    - pip install cpplint
+    - cppcheck --error-exitcode=1 .
+    - cpplint --linelength=120
 
