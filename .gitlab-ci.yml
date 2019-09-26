@@ -17,7 +17,7 @@ lint-python:
   script:
     - virtualenv venv
     - source venv/bin/activate
-    - flake8 --max-line-length=120 --exclude=venv*
+    - python3 -m flake8 --max-line-length=120 --exclude=venv*
 
 lint-cpp:
   stage: lint
@@ -27,4 +27,3 @@ lint-cpp:
   script:
     - cppcheck --error-exitcode=1 .
     #- cpplint --extensions=cpp --counting=detailed --linelength=120 --recursive ./*
-
