@@ -13,8 +13,7 @@ build-test:
 lint-python:
   stage: lint
   before_script:
-    - apt --quiet install --yes python3-pip
-    - pip install virtualenv flake8
+    - pip3 install virtualenv flake8
   script:
     - virtualenv venv
     - source venv/bin/activate
@@ -24,8 +23,7 @@ lint-cpp:
   stage: lint
   before_script:
     - apt --quiet install --yes cppcheck
-    #- apt --quiet install --yes python3-pip
-    #- pip install cpplint
+    #- pip3 install cpplint
   script:
     - cppcheck --error-exitcode=1 .
     #- cpplint --extensions=cpp --counting=detailed --linelength=120 --recursive ./*
