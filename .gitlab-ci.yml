@@ -1,5 +1,8 @@
 image: ros:dashing
 
+before_script:
+  - apt --quiet update --yes
+
 stages:
   - build
   - lint
@@ -13,17 +16,16 @@ build-test:
 lint-python:
   stage: lint
   before_script:
-    - pip3 install virtualenv flake8
+    - apt --quiet update --yes
+    - apt --quiet install --yes python-pip
+    - pip install virtualenv flake8
   script:
     - virtualenv venv
     - source venv/bin/activate
-    - python3 -m flake8 --max-line-length=120 --exclude=venv*
+    - flake8 --max-line-length=120 --exclude=venv*
 
 lint-cpp:
   stage: lint
   before_script:
-    - apt --quiet install --yes cppcheck
-    #- pip3 install cpplint
   script:
     - cppcheck --error-exitcode=1 .
-    #- cpplint --extensions=cpp --counting=detailed --linelength=120 --recursive ./*
