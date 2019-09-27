@@ -13,4 +13,6 @@ And in `CMakeLists.txt` you need to add the following lines:
 find_package(ament_lint_auto REQUIRED)
 ament_lint_auto_find_test_dependencies()
 ```
-
+## Travis CI
+Right now works, but the approach is too straightforward
+Checkout the `.travis.yml` file
