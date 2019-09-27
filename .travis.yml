@@ -5,8 +5,7 @@ services:
 before_install:
   - docker pull ros:dashing
   - docker run -it -d --name build ros:dashing bash
-  - docker exec build git clone https://github.com/vasart/ros2_ci.git
-  - docker exec build cd ros2_ci
+  - docker exec build git clone https://github.com/vasart/ros2_ci.git .
 script:
   - docker exec build colcon build
   - docker exec build colcon test --abort-on-error
