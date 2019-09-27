@@ -1,18 +1,17 @@
 sudo: required
-language: cpp
 services:
   - docker
 before_install:
   - docker pull ros:dashing
   - docker run -it -d --name build ros:dashing bash
-  - docker exec build git clone https://github.com/vasart/ros2_ci.git .
+  - docker exec build git clone https://github.com/vasart/ros2_ci.git
 script:
-  - docker exec build colcon build
-  - docker exec build colcon test --abort-on-error
+  - docker exec build bash -c "source /opt/ros/dashing/setup.bash && cd /ros2_ci && colcon build"
+  - docker exec build bash -c "source /opt/ros/dashing/setup.bash && cd /ros2_ci && colcon test --abort-on-error"
 
   - docker exec build apt --quiet update --yes
   - docker exec build apt --quiet install --yes python-pip
   - docker exec build pip install flake8
-  - docker exec build flake8 --max-line-length=120 --exclude=venv*
+  - docker exec build flake8 --max-line-length=120 /ros2_ci
 after_success:
-  - docker exec build cppcheck --error-exitcode=1 .
+  - docker exec build cppcheck --error-exitcode=1 /ros2_ci
